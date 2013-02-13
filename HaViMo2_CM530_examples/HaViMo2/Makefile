@@ -1,6 +1,6 @@
 # setup
 # modified by zerom for WinARM 8/2010
-# modified by NaN for gcc-arm-linux-gnueabi v4.6.0-8
+# modified by NaN for gcc-arm-none-eabi
 
 #~~~~~~~~~~~~~~~~~~~~ Output File Name ~~~~~~~~~~~~~~~~~~~~
 MAIN_OUT = HaViMo2_APP_CM530
@@ -12,7 +12,7 @@ MAIN_OBJS = \
  APP/src/cm530.o 
 
 #~~~~~~~~~~~~~~~~~~~~ Include Directories ~~~~~~~~~~~~~~~~~~~~
-INCLUDE_DIRS = -I. -Istm32f10x_lib/inc -IHW/inc -IAPP/inc 
+INCLUDE_DIRS = -I. -Istm32f10x_lib/inc -IAPP/inc 
 
 #~~~~~~~~~~~~~~~~~~~~ Library Directories ~~~~~~~~~~~~~~~~~~~~
 LIBRARY_DIRS = -Lstm32f10x_lib
@@ -23,7 +23,7 @@ LIBRARY_DIRS = -Lstm32f10x_lib
 COMPILE_OPTS = -mcpu=cortex-m3 -mthumb -Wall -g -Os -fno-common 
 
 #~~~~~~~~~~~~~~~~~~~~ Toolchain Prefix ~~~~~~~~~~~~~~~~~~~~
-TCHAIN_PREFIX=arm-linux-gnueabi-
+TCHAIN_PREFIX=arm-none-eabi-
 
 CC = $(TCHAIN_PREFIX)gcc
 CFLAGS = $(COMPILE_OPTS) $(INCLUDE_DIRS) 
