@@ -12,10 +12,10 @@ MAIN_OBJS = \
  APP/src/cm530.o 
 
 #~~~~~~~~~~~~~~~~~~~~ Include Directories ~~~~~~~~~~~~~~~~~~~~
-INCLUDE_DIRS = -I. -Istm32f10x_lib/inc -IAPP/inc -I/usr/arm-none-eabi/include
+INCLUDE_DIRS = -I. -Istm32f10x_lib/inc -IAPP/inc
 
 #~~~~~~~~~~~~~~~~~~~~ Library Directories ~~~~~~~~~~~~~~~~~~~~
-LIBRARY_DIRS = -Lstm32f10x_lib -L/usr/arm-none-eabi/lib
+LIBRARY_DIRS = -Lstm32f10x_lib
 
 
 
