@@ -103,7 +103,8 @@ LIBSTM32_OBJS = \
  stm32f10x_lib/src/stm32f10x_rtc.o \
  stm32f10x_lib/src/stm32f10x_spi.o \
  stm32f10x_lib/src/stm32f10x_wwdg.o \
- stm32f10x_lib/src/stm32f10x_vector.o
+ stm32f10x_lib/src/stm32f10x_vector.o \
+
  
 $(LIBSTM32_OUT): $(LIBSTM32_OBJS)
 	$(AR) $(ARFLAGS) $@ $(LIBSTM32_OBJS)
