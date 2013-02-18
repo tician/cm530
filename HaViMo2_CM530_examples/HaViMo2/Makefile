@@ -20,7 +20,7 @@ LIBRARY_DIRS = -Lstm32f10x_lib
 
 
 #~~~~~~~~~~~~~~~~~~~~ Compiler Options ~~~~~~~~~~~~~~~~~~~~
-COMPILE_OPTS = -mcpu=cortex-m3 -mthumb -Wall -g -Os -fno-common 
+COMPILE_OPTS = -mcpu=cortex-m3 -mthumb -Wall -pedantic -g -Os -fno-common 
 
 #~~~~~~~~~~~~~~~~~~~~ Toolchain Prefix ~~~~~~~~~~~~~~~~~~~~
 TCHAIN_PREFIX=arm-none-eabi-
@@ -104,7 +104,6 @@ LIBSTM32_OBJS = \
  stm32f10x_lib/src/stm32f10x_spi.o \
  stm32f10x_lib/src/stm32f10x_wwdg.o \
  stm32f10x_lib/src/stm32f10x_vector.o
-   
  
 $(LIBSTM32_OUT): $(LIBSTM32_OBJS)
 	$(AR) $(ARFLAGS) $@ $(LIBSTM32_OBJS)
