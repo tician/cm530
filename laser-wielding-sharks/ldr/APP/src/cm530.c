@@ -139,8 +139,8 @@ uint32_t Baudrate_PCU = 57600;
 //   due to handling the interrupt.  i.e. 10 [us] interval works fine and will
 //   round to nearest 10 [us].
 //#define USING_SYSTICK_100US
-#define USING_SYSTICK_10US
-//#define USING_SYSTICK_1US
+//#define USING_SYSTICK_10US
+#define USING_SYSTICK_1US
 
 #define DEBUG_PRINT_VOLTAGE
 
@@ -264,20 +264,20 @@ uint16_t ReadAnalog(EPortA_t port)
         GPIO_ResetBits(PORT_ADC_SELECT0,PIN_ADC_SELECT0);
         GPIO_ResetBits(PORT_ADC_SELECT1,PIN_ADC_SELECT1);
 
-        uDelay(5);
+//        uDelay(5);
 
         if (port==EPORT1A)
         {
             // Start ADC1 Software Conversion
             ADC_SoftwareStartConvCmd(ADC1, ENABLE);
-            uDelay(5);
+            uDelay(4);
             return (uint16_t) (ADC_GetConversionValue(ADC1))>>ANALOG_RIGHT_BIT_SHIFT;
         }
         else
         {
             // Start ADC2 Software Conversion
             ADC_SoftwareStartConvCmd(ADC2, ENABLE);
-            uDelay(5);
+            uDelay(4);
             return (uint16_t) (ADC_GetConversionValue(ADC2))>>ANALOG_RIGHT_BIT_SHIFT;
         }
     }
@@ -287,20 +287,20 @@ uint16_t ReadAnalog(EPortA_t port)
         GPIO_SetBits(PORT_ADC_SELECT0,PIN_ADC_SELECT0);
         GPIO_ResetBits(PORT_ADC_SELECT1,PIN_ADC_SELECT1);
 
-        uDelay(5);
+//        uDelay(5);
 
         if (port==EPORT2A)
         {
             // Start ADC1 Software Conversion
             ADC_SoftwareStartConvCmd(ADC1, ENABLE);
-            uDelay(5);
+            uDelay(4);
             return (uint16_t) (ADC_GetConversionValue(ADC1))>>ANALOG_RIGHT_BIT_SHIFT;
         }
         else
         {
             // Start ADC2 Software Conversion
             ADC_SoftwareStartConvCmd(ADC2, ENABLE);
-            uDelay(5);
+            uDelay(4);
             return (uint16_t) (ADC_GetConversionValue(ADC2))>>ANALOG_RIGHT_BIT_SHIFT;
         }
     }
@@ -310,20 +310,20 @@ uint16_t ReadAnalog(EPortA_t port)
         GPIO_ResetBits(PORT_ADC_SELECT0,PIN_ADC_SELECT0);
         GPIO_SetBits(PORT_ADC_SELECT1,PIN_ADC_SELECT1);
 
-        uDelay(5);
+//        uDelay(5);
 
         if (port==EPORT3A)
         {
             // Start ADC1 Software Conversion
             ADC_SoftwareStartConvCmd(ADC1, ENABLE);
-            uDelay(5);
+            uDelay(4);
             return (uint16_t) (ADC_GetConversionValue(ADC1))>>ANALOG_RIGHT_BIT_SHIFT;
         }
         else
         {
             // Start ADC2 Software Conversion
             ADC_SoftwareStartConvCmd(ADC2, ENABLE);
-            uDelay(5);
+            uDelay(4);
             return (uint16_t) (ADC_GetConversionValue(ADC2))>>ANALOG_RIGHT_BIT_SHIFT;
         }
     }
@@ -466,8 +466,22 @@ void StartCountdown(uint32_t StartTime)
         // Enable the SysTick Counter
         SysTick_CounterCmd(SysTick_Counter_Enable);
     }
+}
 
-    SetLED(AUX, 1);
+//##############################################################################
+void StartMicroCountdown(uint32_t StartTime)
+{
+    if (glCountdownCounter==0)
+        gbCounterCount++;
+
+    // Want Timer counting in 1 [ms] intervals
+    glCountdownCounter = (StartTime);
+
+    if (gbCounterCount==1)
+    {
+        // Enable the SysTick Counter
+        SysTick_CounterCmd(SysTick_Counter_Enable);
+    }
 }
 
 //##############################################################################
@@ -2160,7 +2174,9 @@ void ISR_Delay_Base(void)
 {
     // User accessible delay counter
     if (glDelayCounter>1)
+    {
         glDelayCounter--;
+    }
     else if (glDelayCounter>0)
     {
         glDelayCounter--;
@@ -2168,23 +2184,12 @@ void ISR_Delay_Base(void)
     }
 
     // User accessible timeout/countdown counter
-    if (glCountdownCounter>1)
+	if (glCountdownCounter>1)
     {
         glCountdownCounter--;
-#ifdef USING_SYSTICK_100US
-        if ( (glCountdownCounter&0x00000200) )
-#elif defined USING_SYSTICK_10US
-        if ( (glCountdownCounter&0x00001000) )
-#elif defined USING_SYSTICK_1US
-        if ( (glCountdownCounter&0x00010000) )
-#endif
-            SetLED(AUX, 1);
-        else
-            SetLED(AUX, 0);
     }
-    else if (glCountdownCounter>0)
+	else if (glCountdownCounter>0)
     {
-        SetLED(AUX, 0);
         glCountdownCounter--;
         gbCounterCount--;
     }
