@@ -1,6 +1,6 @@
 /**
  *  @file
- *  @author  Matthew Paulishen <ticiane1@uga.edu>
+ *  @author  Matthew Paulishen
  *  @version v2012.02.15.1600
  *
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
